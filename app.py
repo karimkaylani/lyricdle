@@ -15,10 +15,10 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
 cache_folder = os.path.join(os.getcwd(), '.spotify_caches/')
 
-GENIUS_TOKEN = os.environ['GENIUS_TOKEN']
-SPOTIPY_CLIENT_ID = os.environ['SPOTIPY_CLIENT_ID']
-SPOTIPY_CLIENT_SECRET = os.environ['SPOTIPY_CLIENT_SECRET']
-SPOTIPY_REDIRECT_URI = os.environ['SPOTIPY_REDIRECT_URI']
+GENIUS_TOKEN = os.getenv['GENIUS_TOKEN']
+SPOTIPY_CLIENT_ID = os.getenv['SPOTIPY_CLIENT_ID']
+SPOTIPY_CLIENT_SECRET = os.getenv['SPOTIPY_CLIENT_SECRET']
+SPOTIPY_REDIRECT_URI = os.getenv['SPOTIPY_REDIRECT_URI']
 
 scope='user-library-read user-top-read'
 
