@@ -56,7 +56,7 @@ def index():
         return render_template('landing.html', auth_url=auth_url)
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
-    session['username'] = sp.current_user()['id']
+    session['username'] = sp.me()['id']
     # select song
     song, all_tracks = get_random_song_and_list(sp)
     song_str = song['name'],'-',song['artists'][0]['name']

@@ -1,8 +1,6 @@
 //localStorage.clear()
 song = formatSongStr(song)
-// only show autocomplete if user started typing
 var songform = document.getElementById("song-form")
-//songform.addEventListener("input", delayList)
 
 
 var submit = document.getElementById("submit")
@@ -142,15 +140,6 @@ function displayMessage(message) {
     messageElement.textContent = message;
     messageDisplay.append(messageElement)
     setTimeout(() => messageDisplay.removeChild(messageElement), 3500)
-}
-
-
-function delayList() {
-    if (songform.value.length > 1) {
-        songform.setAttribute("list", "songdata")
-    } else {
-        songform.setAttribute("list", "")
-    }
 }
 
 function formatSongStr(song) {
