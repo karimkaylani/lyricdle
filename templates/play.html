@@ -25,14 +25,25 @@
         {% endfor %}
     </datalist>
 
+    <script>
+        $(function () {
+            var songs = $('#songdata option').map(function () {
+                return this.value;
+            }).get()
+
+            $("#song-form").autocomplete({
+                source: songs
+            });
+            $("#song-form").autocomplete("enable");
+        });
+    </script>
+
     <div class="song-input">
         <label for="song">Song:</label>
         <input type="text"
         id = "song-form"
-        list=""
         id="song" name="song"
-        size="50"
-        autocomplete="off" />
+        size="50"/>
 
         <div class="buttons">
             <button id="skip">Skip</button>

@@ -2,7 +2,8 @@
 song = formatSongStr(song)
 // only show autocomplete if user started typing
 var songform = document.getElementById("song-form")
-songform.addEventListener("input", delayList)
+//songform.addEventListener("input", delayList)
+
 
 var submit = document.getElementById("submit")
 submit.addEventListener('click', check)
@@ -24,7 +25,7 @@ if ((localStorage.getItem('date'))) {
     var cookieDate = parseInt(localStorage.getItem('date'))
     if ((now.getDate() != cookieDate) || (username != localStorage.getItem('username'))) {
         localStorage.clear()
-        window.location = '/'
+        window.location.replace('../')  
     }
     // if have saved page before
     var score = parseInt(localStorage.getItem('score'))
