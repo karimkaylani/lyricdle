@@ -20,8 +20,9 @@ const one_day = 1000 * 3600 * 24
 const now = new Date()
 
 if ((localStorage.getItem('date'))) {
+    // if have loaded cookie before
     var cookieDate = parseInt(localStorage.getItem('date'))
-    if (now.getDate() != cookieDate) {
+    if ((now.getDate() != cookieDate) || (username != localStorage.getItem('username'))) {
         localStorage.clear()
         window.location = '/'
     }
@@ -163,5 +164,6 @@ function save() {
     localStorage.setItem('score', score)
     localStorage.setItem('won', won)
     localStorage.setItem('lost', lost)
+    localStorage.setItem('username', username)
     localStorage.setItem('date', new Date().getDate())
 }

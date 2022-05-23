@@ -56,6 +56,7 @@ def index():
         return render_template('landing.html', auth_url=auth_url)
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
+    session['username'] = sp.current_user()['id']
     # select song
     song, all_tracks = get_random_song_and_list(sp)
     song_str = song['name'],'-',song['artists'][0]['name']
@@ -76,7 +77,8 @@ def play():
     if not session.get('song'):
         return redirect('/')
     return render_template('play.html', song=session['song'],
-    all_songs=session['all_songs'], lyrics=session['lyrics'][:6], day=session['num_day'])
+    all_songs=session['all_songs'], lyrics=session['lyrics'][:6], day=session['num_day'],
+    username=session['username'])
 
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']
@@ -97,21 +99,6 @@ def format_lyrics(lyrics):
         if (line and line[0] != '['):
             result.append(line)
     return result
-
-
-# def get_random_song(user):
-#     playlists = user.current_user_playlists(limit=35)['items']
-#     p_index = random.randint(0, len(playlists)-1)
-#     selected_playlist = playlists[p_index]
-#     playlist_tracks = user.playlist_tracks(selected_playlist['id'])['items']
-#     while len(playlist_tracks) < 6:
-#         p_index = random.randint(0, len(playlists))
-#         selected_playlist = playlists[p_index]
-#         playlist_tracks = user.playlist_tracks(selected_playlist['id'])['items']
-
-#     t_index = random.randint(0, len(playlist_tracks)-1)
-#     selected_song = playlist_tracks[t_index]
-#     return selected_song
 
 
 if (__name__ == "main"):
