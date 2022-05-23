@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+
+<div class="game-container">
+
+    <div class="title">
+        Lyricdle
+    </div>
+
+    <div class="lyric-container">
+        {% for line in lyrics %}
+        <div class=lyric id={{"line" + loop.index0|string}} >
+            {{ line }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <datalist id="songdata">
+        {% for song in all_songs %}
+        <option>{{ song }}</option>
+        {% endfor %}
+    </datalist>
+
+    <div class="song-input">
+        <label for="song">Song;</label>
+        <input type="text"
+        id = "song-form"
+        list=""
+        id="song" name="song"
+        size="50"
+        autocomplete="off" />
+
+        <div class="buttons">
+            <button id="skip">Skip</button>
+            <button id="submit">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="{{url_for('static', filename='app.js')}}"></script>
+
+
+{% endblock %}

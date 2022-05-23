@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="welcome-screen">
+
+<div class="title">
+    <h1>Lyricdle</h1>
+</div>
+
+<div class="tagline">
+    <h2>Guess the lyrics from one of your songs one line at a time!</h2>
+</div>
+
+<div class="login">
+    <a href={{auth_url}}>
+        <img src="{{ url_for('static', filename='connect_spotify.png') }}" width="400" height="80">
+    </a>
+</div>
+
+</div>
+
+{% endblock %}

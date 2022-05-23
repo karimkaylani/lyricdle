@@ -1,0 +1,72 @@
+* {
+    color: #000000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: aliceblue;
+}
+
+.title {
+    margin-top: 5vh;
+    font-weight: 650;
+    font-size: 35px;
+}
+
+.welcome-screen {
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: normal;
+    align-items: center;
+}
+
+.game-container {
+    height: 65vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.lyric-container .lyric {
+    font-size:25px;
+    font-weight: 400;
+}
+
+.buttons {
+    margin-top: 3vh;
+    text-align: center;
+}
+
+.buttons button {
+    color: white;
+    background-color: #0a0a23;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    font: 1rem / 1.25 sans-serif;
+}
+
+.song-input label {
+    margin-right: 10vh;
+}
+
+.song-input input {
+    margin-top: .7vh;
+    font: 1.25rem / 1.5 sans-serif;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-width: 0.1em;
+    border-radius: 10px;
+}
+
+#submit {
+    background-color: darkseagreen;
+    margin-left: 2vw;
+}
+
+
+
