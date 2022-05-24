@@ -22,7 +22,7 @@ SPOTIPY_REDIRECT_URI = 'http://127.0.0.1:5000/'
 
 scope='user-library-read user-top-read'
 
-num_day = (datetime.datetime.now() - datetime.datetime(1970, 1, 1)).days
+num_day = (datetime.datetime.now() - datetime.datetime(2022, 5, 22)).days
 random.seed(num_day)
 
 genius = Genius(GENIUS_TOKEN)
@@ -80,7 +80,7 @@ def play():
     if not session.get('song'):
         return redirect('/')
     return render_template('play.html', song=session['song'],
-    all_songs=session['all_songs'], lyrics=session['lyrics'][:6], day=1)
+    all_songs=session['all_songs'], lyrics=session['lyrics'][:6], day=num_day)
 
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']
