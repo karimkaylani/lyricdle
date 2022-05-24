@@ -21,7 +21,7 @@ const now = new Date()
 if ((localStorage.getItem('date'))) {
     // if have loaded cookie before
     var cookieDate = parseInt(localStorage.getItem('date'))
-    if ((now.getDate() != cookieDate) || (username != localStorage.getItem('username'))) {
+    if (now.getDate() != cookieDate) {
         localStorage.clear()
         window.location.replace('../')  
     }

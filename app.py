@@ -15,10 +15,16 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
 cache_folder = os.path.join(os.getcwd(), '.spotify_caches/')
 
-GENIUS_TOKEN = os.getenv('GENIUS_TOKEN')
-SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
-SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
-SPOTIPY_REDIRECT_URI = os.getenv('SPOTIPY_REDIRECT_URI')
+# GENIUS_TOKEN = os.getenv('GENIUS_TOKEN')
+# SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
+# SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
+# SPOTIPY_REDIRECT_URI = os.getenv('SPOTIPY_REDIRECT_URI')
+
+GENIUS_TOKEN = 'kOynBrXdgyk-nvSdsKkOIz5xqPzntH8aLehhjKO4VZY59VXHSV79igWffDi96pZA'
+SPOTIPY_CLIENT_ID = '741dea8d6f154f6393dc60eacb26fc71'
+SPOTIPY_CLIENT_SECRET = '3cde54dec06e4f3a90a215c44c25c1ff'
+SPOTIPY_REDIRECT_URI = 'http://127.0.0.1:5000/'
+
 
 scope='user-library-read user-top-read'
 
@@ -56,7 +62,6 @@ def index():
         return render_template('landing.html', auth_url=auth_url)
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
-    session['username'] = sp.me()['id']
     # select song
     song, all_tracks = get_random_song_and_list(sp)
     song_str = song['name'],'-',song['artists'][0]['name']
@@ -77,8 +82,7 @@ def play():
     if not session.get('song'):
         return redirect('/')
     return render_template('play.html', song=session['song'],
-    all_songs=session['all_songs'], lyrics=session['lyrics'][:6], day=session['num_day'],
-    username=session['username'])
+    all_songs=session['all_songs'], lyrics=session['lyrics'][:6], day=session['num_day'])
 
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']
