@@ -37,6 +37,7 @@ if ((localStorage.getItem('date'))) {
     }
     console.log(lost)
     if (won || lost) {
+        if (lost) { scoreDisplay.textContent = 'X/6' }
         showPopup()
     }
 
@@ -75,8 +76,7 @@ function wrong() {
 }
 
 function correct() {
-    console.log('You win!')
-    displayMessage('Awesome job!')
+    displayMessage('Awesome!!')
     showPopup()
     won = true
     save()
@@ -85,7 +85,7 @@ function correct() {
 function gameOver() {
     lost = true
     score = 7
-    console.log('You lost :(')
+    scoreDisplay.textContent = 'X/6'
     showPopup()
     displayMessage('Sorry :( the song was ' + song)
     save()
