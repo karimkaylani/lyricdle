@@ -1,3 +1,4 @@
+//localStorage.clear()
 song = formatSongStr(song)
 // only show autocomplete if user started typing
 var songform = document.getElementById("song-form")
@@ -10,20 +11,38 @@ var skip = document.getElementById("skip")
 skip.addEventListener('click', wrong)
 
 var popUpDisplay = document.querySelector('.popup-container'); 
-
-if (localStorage.getItem('html')) {
-
-} else {
-    
-}
-
-var score = 1
-var won = false
-var lost = false
+var scoreDisplay = document.querySelector('.score-display')
 
 var lyricContainer = document.querySelector('.lyric-container')
 var lines = lyricContainer.children
-lines[0].children[0].style.opacity = '100'
+
+const one_day = 1000 * 3600 * 24
+const now = Date.now()
+
+if ((localStorage.getItem('date')) && (((now - localStorage.getItem('date')) / one_day) < 1)) {
+    // if have saved page before
+    var score = parseInt(localStorage.getItem('score'))
+    var won = (localStorage.getItem('won') === 'true')
+    var lost = (localStorage.getItem('lost') === 'true')
+
+    scoreDisplay.textContent = score + '/6'
+    for (let i = 0; i < score; i++) {
+        if (i > 5) { break }
+        lines[i].children[0].style.opacity = '100'
+    }
+    console.log(lost)
+    if (won || lost) {
+        showPopup()
+    }
+
+} else {
+    var score = 1
+    var won = false
+    var lost = false
+
+    lines[0].children[0].style.opacity = '100'
+}
+
 
 function check() {
     if (won || lost) {return}
@@ -36,7 +55,9 @@ function check() {
 }
 
 function wrong() {
-    if (won || lost) {return}
+    if (won || lost) {
+        return
+    }
     if (score >= 6) {
         gameOver()
         return
@@ -44,8 +65,8 @@ function wrong() {
     lines[score].children[0].style.opacity = '100'
     score += 1
     songform.value = ""
-    var scoreDisplay = document.querySelector('.score-display')
     scoreDisplay.textContent = score + '/6'
+    save()
 }
 
 function correct() {
@@ -53,6 +74,7 @@ function correct() {
     displayMessage('Awesome job!')
     showPopup()
     won = true
+    save()
 }
 
 function gameOver() {
@@ -61,6 +83,7 @@ function gameOver() {
     console.log('You lost :(')
     showPopup()
     displayMessage('Sorry :( the song was ' + song)
+    save()
 }
 
 function showPopup() {
@@ -135,6 +158,5 @@ function save() {
     localStorage.setItem('score', score)
     localStorage.setItem('won', won)
     localStorage.setItem('lost', lost)
-    localStorage.setItem('hrml', document.body.innerHTML)
-
+    localStorage.setItem('date', Date.now())
 }
