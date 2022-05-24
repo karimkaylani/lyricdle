@@ -57,6 +57,8 @@ def index():
         return render_template('landing.html', auth_url=auth_url)
     
     # if session.get()
+    if session.get('song'):
+        return redirect('play')
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
     # select song

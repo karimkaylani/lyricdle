@@ -5,7 +5,6 @@
 
 
 <div class="game-container">
-
     <div class="title">
         Lyricdle
     </div>
@@ -13,7 +12,7 @@
     <div class="lyric-container">
         {% for line in lyrics %}
         <div class=lyric id={{"line" + loop.index0|string}} >
-            {{ line }}
+            <text>{{ line }}</text>
         </div>
         {% endfor %}
     </div>
@@ -25,7 +24,7 @@
     </datalist>
 
     <div class="song-input">
-        <label for="song">Song;</label>
+        <label for="song">Song:</label>
         <input type="text"
         id = "song-form"
         list=""
@@ -38,11 +37,32 @@
             <button id="submit">Submit</button>
         </div>
     </div>
+
+    <div class="score-display">
+        1/6
+    </div>
+
+    <div class="popup-container">
+        <div class="share-button">
+            <button id="share">
+                Share Result
+            </button>
+        </div>
+        
+        <div class="dismiss-button">
+            <button id="dismiss">
+                Close
+            </button>
+        </div>
+
 </div>
 
 
-
+<script>
+    var song = '{{ song|tojson }}'
+</script>
 <script src="{{url_for('static', filename='app.js')}}"></script>
+
 
 
 {% endblock %}

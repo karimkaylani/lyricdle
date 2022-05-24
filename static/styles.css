@@ -29,10 +29,22 @@ body {
     align-items: center;
 }
 
+.lyric-container {
+    margin-top: 2vh;
+}
 
 .lyric-container .lyric {
     font-size:25px;
     font-weight: 400;
+    border:1px solid black;
+    margin-top: 1vh;
+    margin-bottom: 1.2vh;
+    padding: 1vh;
+    border-radius: 10px;
+}
+
+.lyric-container text {
+    opacity: 0%;
 }
 
 .buttons {
@@ -49,6 +61,10 @@ body {
     font: 1rem / 1.25 sans-serif;
 }
 
+.song-input {
+    margin-top: 1.5vh;
+}
+
 .song-input label {
     margin-right: 10vh;
 }
@@ -61,11 +77,53 @@ body {
     width: 100%;
     border-width: 0.1em;
     border-radius: 10px;
+    padding: 5px;
 }
 
 #submit {
-    background-color: darkseagreen;
+    background-color: rgb(131, 190, 131);
     margin-left: 2vw;
+}
+    
+.score-display {
+    margin-top: 2vh;
+}
+.popup-container {
+    color: white;
+    position:fixed;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #cccccc;
+    width: 350px;
+    height: 250px;
+    text-align: center;
+    border-radius: 25px;
+    opacity: 100%;
+}
+
+.popup-container #title{
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 47px;
+    font-size: 20px;
+    font-weight: 750;
+}
+
+.popup-container button {
+    color: white;
+    height: 40px;
+    width: 80%;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #121213;
+    border: none;
+    font-size: 16px;
+    font-weight: 450;
+}
+
+.popup-container #share {
+    background-color: rgb(131, 190, 131);
 }
 
 
