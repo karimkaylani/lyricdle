@@ -8,9 +8,20 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
     <title>Lyricdle</title>
+    <meta name="description" content= "A wordle-like game where you guess the lyrics from one of your top Spotify songs one line at a time" />
+    <meta name="robots" content= "index, follow">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNFVM4EFEV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZNFVM4EFEV');
+    </script>
     {% block head %}{% endblock %}
 </head>
 
