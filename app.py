@@ -22,9 +22,6 @@ SPOTIPY_REDIRECT_URI = 'http://127.0.0.1:5000/'
 
 scope='user-library-read user-top-read'
 
-num_day = (datetime.datetime.now() - datetime.datetime(2022, 5, 22)).days
-random.seed(num_day)
-
 genius = Genius(GENIUS_TOKEN)
 
 if not os.path.exists(cache_folder):
@@ -35,6 +32,8 @@ def current_session_cache_path():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    num_day = (datetime.datetime.now() - datetime.datetime(2022, 5, 22)).days
+    random.seed(num_day)
     if not session.get('uuid'):
         # assign unique session 
         session['uuid'] = str(uuid.uuid4())
@@ -55,10 +54,6 @@ def index():
         #Display sign in link when no token
         auth_url = auth_manager.get_authorize_url()
         return render_template('landing.html', auth_url=auth_url)
-    
-    # if session.get()
-    if session.get('song'):
-        return redirect('play')
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
     # select song
@@ -73,6 +68,7 @@ def index():
     session['all_songs'] = all_tracks
     session['song'] = song_str
     session['lyrics'] = lyrics
+    session['num_day'] = num_day
     return redirect('/play')
 
 @app.route('/play')
@@ -80,7 +76,7 @@ def play():
     if not session.get('song'):
         return redirect('/')
     return render_template('play.html', song=session['song'],
-    all_songs=session['all_songs'], lyrics=session['lyrics'][:6], day=num_day)
+    all_songs=session['all_songs'], lyrics=session['lyrics'][:6], day=session['num_day'])
 
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']

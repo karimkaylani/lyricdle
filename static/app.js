@@ -17,9 +17,14 @@ var lyricContainer = document.querySelector('.lyric-container')
 var lines = lyricContainer.children
 
 const one_day = 1000 * 3600 * 24
-const now = Date.now()
+const now = new Date()
 
-if ((localStorage.getItem('date')) && (((now - localStorage.getItem('date')) / one_day) < 1)) {
+if ((localStorage.getItem('date'))) {
+    var cookieDate = parseInt(localStorage.getItem('date'))
+    if (now.getDate() != cookieDate) {
+        localStorage.clear()
+        window.location = '/'
+    }
     // if have saved page before
     var score = parseInt(localStorage.getItem('score'))
     var won = (localStorage.getItem('won') === 'true')
@@ -158,5 +163,5 @@ function save() {
     localStorage.setItem('score', score)
     localStorage.setItem('won', won)
     localStorage.setItem('lost', lost)
-    localStorage.setItem('date', Date.now())
+    localStorage.setItem('date', new Date().getDate())
 }
