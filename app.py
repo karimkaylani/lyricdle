@@ -60,7 +60,7 @@ def index():
     sp = spotipy.Spotify(auth_manager=auth_manager)
     # select song
     song, all_tracks = get_random_song_and_list(sp)
-    song_str = song['name'],'-',song['artists'][0]['name']
+    song_str = song['name'] + ' - ' + song['artists'][0]['name']
     genius_song = genius.search_song(song['name'], song['artists'][0]['name'])
     #genius_song = genius.search_song('sdlkfgkdkg', 'fdklgndskjgnds')
     if not genius_song:

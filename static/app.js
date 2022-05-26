@@ -1,5 +1,4 @@
 //localStorage.clear()
-song = formatSongStr(song)
 var songform = document.getElementById("song-form")
 
 
@@ -136,14 +135,6 @@ function displayMessage(message) {
     messageElement.textContent = message;
     messageDisplay.append(messageElement)
     setTimeout(() => messageDisplay.removeChild(messageElement), 2500)
-}
-
-function formatSongStr(song) {
-    var str = song.replaceAll('[', '')
-    str = str.replaceAll(']', '')
-    str = str.replaceAll(',', '')
-    str = str.replaceAll('"', '')
-    return str
 }
 
 function save() {
