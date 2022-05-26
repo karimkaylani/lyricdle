@@ -19,7 +19,6 @@ const one_day = 1000 * 3600 * 24
 const now = new Date()
 
 if ((localStorage.getItem('date')) && (now.getDate() == parseInt(localStorage.getItem('date')))) {
-    console.log(now.getDate())
     // if have loaded cookie before
     // if have saved page before
     var score = parseInt(localStorage.getItem('score'))

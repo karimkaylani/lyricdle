@@ -54,7 +54,7 @@ def index():
         return render_template('landing.html', auth_url=auth_url)
 
     num_day = (datetime.datetime.now() - datetime.datetime(2022, 5, 22)).days
-    print(num_day)
+    print(datetime.datetime.now())
     random.seed(num_day)
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
