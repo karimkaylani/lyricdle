@@ -62,13 +62,12 @@ def index():
     song, all_tracks = get_random_song_and_list(sp)
     song_str = song['name'],'-',song['artists'][0]['name']
     genius_song = genius.search_song(song['name'], song['artists'][0]['name'])
-    username = get_username(sp)
     #genius_song = genius.search_song('sdlkfgkdkg', 'fdklgndskjgnds')
     if not genius_song:
         return "Sorry, we couldn't find lyrics for today's song :("
     lyrics = format_lyrics(genius_song.lyrics)
     return render_template('play.html', song=song_str,
-    all_songs=all_tracks, lyrics=lyrics[:6], day=num_day, username=username)
+    all_songs=all_tracks, lyrics=lyrics[:6], day=num_day)
 
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']

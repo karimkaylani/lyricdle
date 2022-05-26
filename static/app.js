@@ -18,8 +18,7 @@ var lines = lyricContainer.children
 const one_day = 1000 * 3600 * 24
 const now = new Date()
 
-if ((localStorage.getItem('date')) && (now.getDate() == parseInt(localStorage.getItem('date')))
-&& (localStorage.getItem('username') == username)) {
+if ((localStorage.getItem('date')) && (now.getDate() == parseInt(localStorage.getItem('date')))) {
     console.log(now.getDate())
     // if have loaded cookie before
     // if have saved page before
@@ -152,6 +151,5 @@ function save() {
     localStorage.setItem('score', score)
     localStorage.setItem('won', won)
     localStorage.setItem('lost', lost)
-    localStorage.setItem('username', username)
     localStorage.setItem('date', new Date().getDate())
 }
