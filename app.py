@@ -20,7 +20,6 @@ SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 SPOTIPY_REDIRECT_URI = os.getenv('SPOTIPY_REDIRECT_URI')
 
-
 scope='user-library-read user-top-read'
 
 genius = Genius(GENIUS_TOKEN)
@@ -33,8 +32,6 @@ def current_session_cache_path():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    num_day = (datetime.datetime.now() - datetime.datetime(2022, 5, 22)).days
-    random.seed(num_day)
     if not session.get('uuid'):
         # assign unique session 
         session['uuid'] = str(uuid.uuid4())
@@ -56,28 +53,22 @@ def index():
         auth_url = auth_manager.get_authorize_url()
         return render_template('landing.html', auth_url=auth_url)
 
+    num_day = (datetime.datetime.now() - datetime.datetime(2022, 5, 22)).days
+    print(num_day)
+    random.seed(num_day)
+
     sp = spotipy.Spotify(auth_manager=auth_manager)
     # select song
     song, all_tracks = get_random_song_and_list(sp)
     song_str = song['name'],'-',song['artists'][0]['name']
     genius_song = genius.search_song(song['name'], song['artists'][0]['name'])
+    username = get_username(sp)
     #genius_song = genius.search_song('sdlkfgkdkg', 'fdklgndskjgnds')
     if not genius_song:
         return "Sorry, we couldn't find lyrics for today's song :("
     lyrics = format_lyrics(genius_song.lyrics)
-    # assign session object here
-    session['all_songs'] = all_tracks
-    session['song'] = song_str
-    session['lyrics'] = lyrics
-    session['num_day'] = num_day
-    return redirect('/play')
-
-@app.route('/play')
-def play():
-    if not session.get('song'):
-        return redirect('/')
-    return render_template('play.html', song=session['song'],
-    all_songs=session['all_songs'], lyrics=session['lyrics'][:6], day=session['num_day'])
+    return render_template('play.html', song=song_str,
+    all_songs=all_tracks, lyrics=lyrics[:6], day=num_day, username=username)
 
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']
@@ -99,6 +90,9 @@ def format_lyrics(lyrics):
             result.append(line)
     return result
 
+def get_username(user):
+    x = user.current_user_playlists(limit=1)
+    return x['items'][0]['owner']['id']
 
 if (__name__ == "main"):
     app.run(debug=True)

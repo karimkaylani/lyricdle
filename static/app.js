@@ -18,13 +18,10 @@ var lines = lyricContainer.children
 const one_day = 1000 * 3600 * 24
 const now = new Date()
 
-if ((localStorage.getItem('date'))) {
+if ((localStorage.getItem('date')) && (now.getDate() == parseInt(localStorage.getItem('date')))
+&& (localStorage.getItem('username') == username)) {
+    console.log(now.getDate())
     // if have loaded cookie before
-    var cookieDate = parseInt(localStorage.getItem('date'))
-    if (now.getDate() != cookieDate) {
-        localStorage.clear()
-        window.location.replace('../')  
-    }
     // if have saved page before
     var score = parseInt(localStorage.getItem('score'))
     var won = (localStorage.getItem('won') === 'true')
@@ -42,6 +39,7 @@ if ((localStorage.getItem('date'))) {
     }
 
 } else {
+    localStorage.clear()
     var score = 1
     var won = false
     var lost = false
@@ -96,7 +94,7 @@ function showPopup() {
     completedElement.setAttribute('id', 'title')
     completedElement.textContent = "Lyricdle #" + day
     popUpDisplay.prepend(completedElement)
-    popUpDisplay.style.opacity = "95%";
+    popUpDisplay.style.opacity = "100%";
 
     const close = document.getElementById('dismiss')
     close.addEventListener('click', () => closePopup())
@@ -139,7 +137,7 @@ function displayMessage(message) {
     const messageElement = document.createElement('p')
     messageElement.textContent = message;
     messageDisplay.append(messageElement)
-    setTimeout(() => messageDisplay.removeChild(messageElement), 3500)
+    setTimeout(() => messageDisplay.removeChild(messageElement), 2500)
 }
 
 function formatSongStr(song) {
