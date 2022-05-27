@@ -26,7 +26,7 @@ SPOTIPY_REDIRECT_URI = os.getenv('SPOTIPY_REDIRECT_URI')
 
 scope='user-top-read'
 
-genius = Genius(GENIUS_TOKEN)
+genius = Genius(GENIUS_TOKEN, remove_section_headers=True, skip_non_songs=True)
 PST = pytz.timezone('US/Pacific')
 
 if not os.path.exists(cache_folder):
@@ -59,7 +59,7 @@ def index():
         auth_url = auth_manager.get_authorize_url()
         return render_template('landing.html', auth_url=auth_url)
 
-    start_date = datetime(2022, 5, 22)
+    start_date = datetime(2022, 5, 26)
     start_date = PST.localize(start_date)
     now = datetime.now()
     now = PST.localize(now)
@@ -72,8 +72,7 @@ def index():
     while not song_found:
         song, all_tracks = get_random_song_and_list(sp)
         song_str = song['name'] + ' - ' + song['artists'][0]['name']
-        genius_song = genius.search_song(song['name'], song['artists'][0]['name'])
-        #genius_song = genius.search_song('My Oh My (feat. DaBaby)', 'Camila Cabello')
+        genius_song = genius.search_song(song['name'], song['artists'][0]['name'])        
         lyrics = format_lyrics(genius_song.lyrics)
         if genius_song and len(lyrics) >= 6:
             song_found = True
@@ -93,11 +92,7 @@ def get_random_song_and_list(user):
 
 def format_lyrics(lyrics):
     split = lyrics.splitlines()
-    split = split[1:]
-    result = []
-    for line in split:
-        if (line and line[0] != '['):
-            result.append(line)
+    result = split[1:]
     return result
 
 def get_username(user):

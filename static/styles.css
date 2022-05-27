@@ -34,6 +34,12 @@ body {
     height: 30px;
 }
 
+.tagline {
+    font-weight: 500;
+    font-style: italic;
+    margin-bottom: 3vh;
+}
+
 .message-container p {
     background-color: #cdcdcd;
     border-radius: 10px;
@@ -152,6 +158,12 @@ body {
     opacity: 0;
     width: 3em;
     height: auto;
+}
+
+footer {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 55vh;
 }
 
 
