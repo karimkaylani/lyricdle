@@ -16,7 +16,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(64)
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
-cache_folder = os.path.join(os.getcwd(), '.spotify_caches/')
+cache_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+ '.spotify_caches/')
 
 GENIUS_TOKEN = os.getenv('GENIUS_TOKEN')
 SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
