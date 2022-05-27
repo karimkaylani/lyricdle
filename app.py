@@ -1,3 +1,5 @@
+from time import timezone
+from tracemalloc import start
 from unittest import result
 from flask import Flask, session, request, redirect, render_template
 import spotipy
@@ -5,7 +7,8 @@ from lyricsgenius import Genius
 import uuid
 import os
 import random
-import datetime
+from datetime import datetime
+import pytz
 
 app = Flask(__name__)
 
@@ -23,6 +26,7 @@ SPOTIPY_REDIRECT_URI = os.getenv('SPOTIPY_REDIRECT_URI')
 scope='user-library-read user-top-read'
 
 genius = Genius(GENIUS_TOKEN)
+PST = pytz.timezone('US/Pacific')
 
 if not os.path.exists(cache_folder):
     os.makedirs(cache_folder)
@@ -32,6 +36,9 @@ def current_session_cache_path():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    # print(request.method)
+    # if request.method == "POST":
+    #     session['num_days'] = request.get_json()['numDays']
     if not session.get('uuid'):
         # assign unique session 
         session['uuid'] = str(uuid.uuid4())
@@ -53,8 +60,11 @@ def index():
         auth_url = auth_manager.get_authorize_url()
         return render_template('landing.html', auth_url=auth_url)
 
-    num_day = (datetime.datetime.now() - datetime.datetime(2022, 5, 22)).days
-    print(datetime.datetime.now())
+    start_date = datetime(2022, 5, 22)
+    start_date = PST.localize(start_date)
+    now = datetime.now()
+    now = PST.localize(now)
+    num_day = (now - start_date).days
     random.seed(num_day)
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
@@ -62,7 +72,7 @@ def index():
     song, all_tracks = get_random_song_and_list(sp)
     song_str = song['name'] + ' - ' + song['artists'][0]['name']
     genius_song = genius.search_song(song['name'], song['artists'][0]['name'])
-    #genius_song = genius.search_song('sdlkfgkdkg', 'fdklgndskjgnds')
+    #genius_song = genius.search_song('My Oh My (feat. DaBaby)', 'Camila Cabello')
     if not genius_song:
         return "Sorry, we couldn't find lyrics for today's song :("
     lyrics = format_lyrics(genius_song.lyrics)

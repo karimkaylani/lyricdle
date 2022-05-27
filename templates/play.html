@@ -3,8 +3,10 @@
 {% block body %}
 
 
-
 <div class="game-container">
+    <div class="leaderboard-container">
+        <img id="leaderboard" src="static/leaderboard.png">
+    </div>
     <div class="title">
         Lyricdle
     </div>
@@ -56,6 +58,9 @@
     </div>
 
     <div class="popup-container">
+        <div class="song-container">
+            <p id="song-title"></p>
+        </div>
         <div class="share-button">
             <button id="share">
                 Share Result

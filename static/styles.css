@@ -115,12 +115,16 @@ body {
     opacity: 0%;
 }
 
-.popup-container #title{
+.popup-container #title {
     color: rgb(39, 39, 39);
     margin-top: 10px;
-    margin-bottom: 47px;
+    margin-bottom: 20px;
     font-size: 30px;
     font-weight: 600;
+}
+
+.popup-container .song-container {
+    margin-bottom: 15px;
 }
 
 .popup-container button {
@@ -137,6 +141,17 @@ body {
 
 .popup-container #share {
     background-color: rgb(131, 190, 131);
+}
+
+.leaderboard-container {
+    position: absolute;
+    margin-top: 10px;
+}
+
+#leaderboard {
+    opacity: 0;
+    width: 3em;
+    height: auto;
 }
 
 
