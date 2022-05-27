@@ -23,7 +23,7 @@ SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 SPOTIPY_REDIRECT_URI = os.getenv('SPOTIPY_REDIRECT_URI')
 
-scope='user-library-read user-top-read'
+scope='user-top-read'
 
 genius = Genius(GENIUS_TOKEN)
 PST = pytz.timezone('US/Pacific')
@@ -36,12 +36,10 @@ def current_session_cache_path():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # print(request.method)
-    # if request.method == "POST":
-    #     session['num_days'] = request.get_json()['numDays']
     if not session.get('uuid'):
         # assign unique session 
         session['uuid'] = str(uuid.uuid4())
+        session.permanent = True
 
     cache_handler = spotipy.CacheFileHandler(cache_path=current_session_cache_path())
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope=scope,
@@ -69,15 +67,17 @@ def index():
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
     # select song
-    song, all_tracks = get_random_song_and_list(sp)
-    song_str = song['name'] + ' - ' + song['artists'][0]['name']
-    genius_song = genius.search_song(song['name'], song['artists'][0]['name'])
-    #genius_song = genius.search_song('My Oh My (feat. DaBaby)', 'Camila Cabello')
-    if not genius_song:
-        return "Sorry, we couldn't find lyrics for today's song :("
-    lyrics = format_lyrics(genius_song.lyrics)
+    song_found = False
+    while not song_found:
+        song, all_tracks = get_random_song_and_list(sp)
+        song_str = song['name'] + ' - ' + song['artists'][0]['name']
+        genius_song = genius.search_song(song['name'], song['artists'][0]['name'])
+        #genius_song = genius.search_song('My Oh My (feat. DaBaby)', 'Camila Cabello')
+        lyrics = format_lyrics(genius_song.lyrics)
+        if genius_song and len(lyrics) >= 6:
+            song_found = True
     return render_template('play.html', song=song_str,
-    all_songs=all_tracks, lyrics=lyrics[:6], day=num_day)
+    all_songs=all_tracks, lyrics=lyrics[:6], day=num_day, id=session['uuid'])
 
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']

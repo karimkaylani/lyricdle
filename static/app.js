@@ -14,7 +14,12 @@ var scoreDisplay = document.querySelector('.score-display')
 var lyricContainer = document.querySelector('.lyric-container')
 var lines = lyricContainer.children
 
-if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('date')))) {
+console.log(id)
+console.log(localStorage.getItem('id'))
+console.log(id == localStorage.getItem('id'))
+
+if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('date')))
+&& (id == localStorage.getItem('id'))) {
     // if have loaded cookie before
     // if have saved page before
     var score = parseInt(localStorage.getItem('score'))
@@ -26,7 +31,6 @@ if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('dat
         if (i > 5) { break }
         lines[i].children[0].style.opacity = '100'
     }
-    console.log(lost)
     if (won || lost) {
         if (lost) { scoreDisplay.textContent = 'X/6' }
         createPopup()
@@ -154,4 +158,5 @@ function save() {
     localStorage.setItem('won', won)
     localStorage.setItem('lost', lost)
     localStorage.setItem('date', day)
+    localStorage.setItem('id', id)
 }
