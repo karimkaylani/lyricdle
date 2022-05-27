@@ -92,7 +92,11 @@ def get_random_song_and_list(user):
 
 def format_lyrics(lyrics):
     split = lyrics.splitlines()
-    result = split[1:]
+    split = split[1:]
+    result = []
+    for line in split:
+        if line:
+            result.append(line)
     return result
 
 def get_username(user):
