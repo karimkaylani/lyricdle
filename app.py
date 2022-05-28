@@ -72,10 +72,11 @@ def index():
     while not song_found:
         song, all_tracks = get_random_song_and_list(sp)
         song_str = song['name'] + ' - ' + song['artists'][0]['name']
-        genius_song = genius.search_song(song['name'], song['artists'][0]['name'])        
-        lyrics = format_lyrics(genius_song.lyrics)
-        if genius_song and len(lyrics) >= 6:
-            song_found = True
+        genius_song = genius.search_song(song['name'], song['artists'][0]['name'])
+        if genius_song:        
+            lyrics = format_lyrics(genius_song.lyrics)
+            if len(lyrics) >= 6:
+                song_found = True
     return render_template('play.html', song=song_str,
     all_songs=all_tracks, lyrics=lyrics[:6], day=num_day, id=session['uuid'])
 
