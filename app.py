@@ -99,9 +99,5 @@ def format_lyrics(lyrics):
             result.append(line)
     return result
 
-def get_username(user):
-    x = user.current_user_playlists(limit=1)
-    return x['items'][0]['owner']['id']
-
 if (__name__ == "main"):
     app.run(debug=True)

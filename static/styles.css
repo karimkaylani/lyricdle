@@ -38,6 +38,7 @@ body {
     font-weight: 500;
     font-style: italic;
     margin-bottom: 3vh;
+    text-align: center;
 }
 
 .message-container p {

@@ -14,10 +14,6 @@ var scoreDisplay = document.querySelector('.score-display')
 var lyricContainer = document.querySelector('.lyric-container')
 var lines = lyricContainer.children
 
-console.log(id)
-console.log(localStorage.getItem('id'))
-console.log(id == localStorage.getItem('id'))
-
 if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('date')))
 && (id == localStorage.getItem('id'))) {
     // if have loaded cookie before
