@@ -1,4 +1,5 @@
 //localStorage.clear()
+song = song.substring(1,song.length-1)
 var songform = document.getElementById("song-form")
 var submit = document.getElementById("submit")
 submit.addEventListener('click', check)
