@@ -1,5 +1,5 @@
 # [Lyricdle](https://www.lyricdle.app)
-### A wordle-like game where you guess the lyrics from one of your top Spotify songs one line at a time
+### A wordle-like game where you use lyrics to guess one of your top Spotify songs one line at a time
 
 <img src="https://i.imgur.com/IjdHyGO.gif" width="450">
 
