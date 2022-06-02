@@ -101,14 +101,15 @@ def get_random_song_and_list(user):
 
 def remove_feature(song_title):
     # referred to https://www.reddit.com/r/kustom/comments/a4tfga/any_way_to_remove_the_features_from_song_titles/
-    if "feat." in song_title:
-        pattern = "\s.feat.*?(\)|\])"
-        result = re.sub(pattern, '', song_title)
-    elif "ft." in song_title:
-        pattern = "\s.ft.*?(\)|\])"
-        result = re.sub(pattern, '', song_title)
+    if "(feat." in song_title.lower() or '[feat.' in song_title.lower():
+        pattern = "(?i)\s.feat.*?(\)|\])"
+    elif "(ft." in song_title.lower() or '[ft.' in song_title.lower():
+        pattern = "(?i)\s.ft.*?(\)|\])"
+    elif '(with' in song_title or '[with' in song_title.lower():
+        pattern = "(?i)\s.with.*?(\)|\])"
     else:
-        result = song_title
+        return song_title
+    result = re.sub(pattern, '', song_title)
     return result
 
 def format_lyrics(lyrics):
