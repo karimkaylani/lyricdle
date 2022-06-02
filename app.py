@@ -105,7 +105,7 @@ def remove_feature(song_title):
         pattern = "(?i)\s.feat.*?(\)|\])"
     elif "(ft." in song_title.lower() or '[ft.' in song_title.lower():
         pattern = "(?i)\s.ft.*?(\)|\])"
-    elif '(with' in song_title or '[with' in song_title.lower():
+    elif '(with' in song_title.lower() or '[with' in song_title.lower():
         pattern = "(?i)\s.with.*?(\)|\])"
     else:
         return song_title
