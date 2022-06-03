@@ -9,6 +9,7 @@ import os
 import random
 from datetime import datetime
 import pytz
+import re
 
 app = Flask(__name__)
 
@@ -35,12 +36,15 @@ if not os.path.exists(cache_folder):
 def current_session_cache_path():
     return cache_folder + session.get('uuid')
 
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if not session.get('uuid'):
         # assign unique session 
         session['uuid'] = str(uuid.uuid4())
-        session.permanent = True
 
     cache_handler = spotipy.CacheFileHandler(cache_path=current_session_cache_path())
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope=scope,
@@ -73,7 +77,7 @@ def index():
         while not song_found:
             song, all_tracks = get_random_song_and_list(sp)
             song_str = song['name'] + ' - ' + song['artists'][0]['name']
-            genius_song = genius.search_song(song['name'], song['artists'][0]['name'])
+            genius_song = genius.search_song(remove_feature(song['name']), song['artists'][0]['name'])
             if genius_song:        
                 lyrics = format_lyrics(genius_song.lyrics)
                 if len(lyrics) >= 6:
@@ -94,6 +98,18 @@ def get_random_song_and_list(user):
             song = track
         all_tracks.append(track['name'] + ' - ' + track['artists'][0]['name'])
     return song, list(set(all_tracks))
+
+def remove_feature(song_title):
+    # referred to https://www.reddit.com/r/kustom/comments/a4tfga/any_way_to_remove_the_features_from_song_titles/
+    if "feat." in song_title:
+        pattern = "\s.feat.*?(\)|\])"
+        result = re.sub(pattern, '', song_title)
+    elif "ft." in song_title:
+        pattern = "\s.ft.*?(\)|\])"
+        result = re.sub(pattern, '', song_title)
+    else:
+        result = song_title
+    return result
 
 def format_lyrics(lyrics):
     split = lyrics.splitlines()

@@ -16,7 +16,7 @@ var lyricContainer = document.querySelector('.lyric-container')
 var lines = lyricContainer.children
 
 if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('date')))
-&& (id == localStorage.getItem('id'))) {
+&& (song == localStorage.getItem('song'))) {
     // if have loaded cookie before
     // if have saved page before
     var score = parseInt(localStorage.getItem('score'))
@@ -46,6 +46,8 @@ if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('dat
 function check() {
     if (won || lost) {return}
     var input = songform.value
+    console.log(input)
+    console.log(song)
     if (input == song) {
         correct()
     } else {
@@ -155,5 +157,5 @@ function save() {
     localStorage.setItem('won', won)
     localStorage.setItem('lost', lost)
     localStorage.setItem('date', day)
-    localStorage.setItem('id', id)
+    localStorage.setItem('song', song)
 }
