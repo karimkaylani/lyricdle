@@ -70,6 +70,11 @@ def index():
     num_day = (now - start_date).days
     random.seed(num_day)
 
+    # add salt to add some more randomization
+    salt = random.randrange(1, 10000, 400)
+    new_seed = num_day + salt
+    random.seed(new_seed)
+
     sp = spotipy.Spotify(auth_manager=auth_manager)
     # select song
     if not session.get('song_data') or session.get('song_data')['num_day'] != num_day:
@@ -82,11 +87,11 @@ def index():
                 lyrics = format_lyrics(genius_song.lyrics)
                 if len(lyrics) >= 6:
                     song_found = True
-        session['song_data'] = {'song': song_str, 'all_songs': all_tracks, 'lyrics': lyrics, 'num_day': num_day}
+        session['song_data'] = {'song': song_str, 'all_songs': all_tracks, 'lyrics': lyrics[:6], 'num_day': num_day}
     else:
         print('Pulling', session['song_data']['song'], 'from cache')
     return render_template('play.html', song=session['song_data']['song'],
-    all_songs=session['song_data']['all_songs'], lyrics=session['song_data']['lyrics'][:6], day=num_day, id=session['uuid'])
+    all_songs=session['song_data']['all_songs'], lyrics=session['song_data']['lyrics'], day=num_day, id=session['uuid'])
 
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']
