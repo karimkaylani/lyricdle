@@ -70,11 +70,6 @@ def index():
     num_day = (now - start_date).days
     random.seed(num_day)
 
-    # add salt to add some more randomization
-    salt = random.randrange(1, 10000, 400)
-    new_seed = num_day + salt
-    random.seed(new_seed)
-
     sp = spotipy.Spotify(auth_manager=auth_manager)
     # select song
     if not session.get('song_data') or session.get('song_data')['num_day'] != num_day:
