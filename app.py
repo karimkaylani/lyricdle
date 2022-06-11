@@ -71,12 +71,12 @@ def index():
     num_day = (now - start_date).days
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
-    user_id = get_user_id(sp)
-    # hash ID into integer
-    hashed = int(hashlib.sha256(user_id.encode('utf-8')).hexdigest(), 16)
-    new_seed = num_day * hashed
-    # salt random generator with user_id 
-    random.seed(new_seed)
+    # user_id = get_user_id(sp)
+    # # hash ID into integer
+    # hashed = int(hashlib.sha256(user_id.encode('utf-8')).hexdigest(), 16)
+    # new_seed = num_day * hashed
+    # # salt random generator with user_id 
+    random.seed(num_day)
     # select song
     if not session.get('song_data') or session.get('song_data')['num_day'] != num_day:
         song_found = False
