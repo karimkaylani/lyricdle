@@ -2,18 +2,17 @@
 
 {% block body %}
 
-<div class="leaderboard-container">
-    <img id="leaderboard" src="static/leaderboard.png">
-</div>
-
 
 <div class="game-container">
     <div class="title">
-        Lyricdle
+        LYRICDLE
     </div>
 
     <div class="message-container"></div>
 
+    <div class="leaderboard-container">
+        <img id="leaderboard" src="static/leaderboard.svg">
+    </div>
     <div class="lyric-container">
         {% for line in lyrics %}
         <div class=lyric id={{"line" + loop.index0|string}} >

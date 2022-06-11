@@ -1,6 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200..900');
+
+:root {
+    --primary-green: #469867;
+    --primary-black: #2C2C2C;
+    --primary-gray: rgb(127, 126, 126);
+}
+
 * {
-    color: #000000;
-    @import url('https://rsms.me/inter/inter.css');
+    color: var(--primary-black);
     font-family: 'Inter', sans-serif;
 }
 
@@ -12,8 +19,12 @@ body {
     margin-top: 5vh;
     font-weight: 650;
     font-size: 35px;
+    font-family: 'Secular One';
 }
 
+.title h1 {
+    font-family: 'Secular One';
+}
 
 .welcome-screen {
     height: 35vh;
@@ -31,22 +42,38 @@ body {
     align-items: center;
 }
 
+
+#leaderboard {
+    margin-top: 2.5vh;
+    cursor: pointer;
+    display: none;
+    width: 2.7em;
+}
+
 .message-container {
     margin-top: 1.5vh;
     height: 30px;
 }
 
 .tagline {
-    font-weight: 500;
     margin-bottom: 3vh;
-    font-style: italic;
     text-align: center;
+    max-width: 400px;
 }
 
 .tagline h2 {
+    font-weight: 600;
     font-style: normal;
 }
 
+.tagline p {
+    color:var(--primary-gray);
+    font-weight: 450;
+}
+
+.login {
+    margin-top: 2vh;
+}
 
 .message-container p {
     background-color: #cdcdcd;
@@ -82,7 +109,7 @@ body {
 
 .buttons button {
     color: white;
-    background-color: #2C2C2C;
+    background-color: var(--primary-black);
     border: none;
     border-radius: 10px;
     padding: 15px;
@@ -103,13 +130,13 @@ body {
     display: block;
     box-sizing: border-box;
     width: 100%;
-    border:2px solid #2C2C2C;
+    border:2px solid var(--primary-black);
     border-radius: 10px;
     padding: 5px;
 }
 
 #submit {
-    background-color: #70AB7D;;
+    background-color: var(--primary-green);
     margin-left: 2vw;
 }
     
@@ -136,7 +163,7 @@ body {
     flex-direction: column;
     justify-content: start;
     overflow: hidden;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 80vw;
@@ -148,7 +175,7 @@ body {
 }
 
 .popup-container #title {
-    color: rgb(39, 39, 39);
+    color: var(--primary-black);
     margin-top: 10px;
     margin-bottom: 20px;
     font-size: 30px;
@@ -156,8 +183,7 @@ body {
 }
 
 #song-title {
-    font-weight: 500;
-    font-style: italic;
+    font-weight: 650;
     margin-bottom: 15px;
 }
 
@@ -191,27 +217,14 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
-    background-color: #2C2C2C;
+    background-color: var(--primary-black);
     border: none;
     font-size: 16px;
     font-weight: 450;
 }
 
 .popup-container #share {
-    background-color: #70AB7D;
-}
-
-.leaderboard-container {
-    position: absolute;
-    margin-top: 10px;
-    top:0px;
-    right:15px;
-}
-
-#leaderboard {
-    opacity: 0;
-    width: 2.7em;
-    height: auto;
+    background-color: var(--primary-green);
 }
 
 footer {

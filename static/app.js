@@ -1,4 +1,4 @@
-//localStorage.clear()
+localStorage.clear()
 console.log(id)
 song = song.substring(1,song.length-1)
 var songform = document.getElementById("song-form")
@@ -144,7 +144,7 @@ function createPopup() {
     daysPlayedElem.innerHTML += numGamesPlayed.toString()
 
     const scoreIcon = document.getElementById('leaderboard')
-    scoreIcon.style.opacity = "100"
+    scoreIcon.style.display = "block"
     scoreIcon.addEventListener('click', () => showPopup())
 }
 
