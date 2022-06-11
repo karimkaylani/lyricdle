@@ -10,6 +10,7 @@ import random
 from datetime import datetime
 import pytz
 import re
+import hashlib
 
 app = Flask(__name__)
 
@@ -25,7 +26,8 @@ SPOTIPY_CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
 SPOTIPY_CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 SPOTIPY_REDIRECT_URI = os.getenv('SPOTIPY_REDIRECT_URI')
 
-scope='user-top-read'
+
+scope='user-top-read user-read-email'
 
 genius = Genius(GENIUS_TOKEN, remove_section_headers=True, skip_non_songs=True)
 PST = pytz.timezone('US/Pacific')
@@ -68,9 +70,14 @@ def index():
     now = datetime.now()
     now = PST.localize(now)
     num_day = (now - start_date).days
-    random.seed(num_day)
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
+    user_id = get_user_id(sp)
+    # hash ID into integer
+    hashed = int(hashlib.sha256(user_id.encode('utf-8')).hexdigest(), 16)
+    new_seed = num_day * hashed
+    # salt random generator with user_id 
+    random.seed(new_seed)
     # select song
     if not session.get('song_data') or session.get('song_data')['num_day'] != num_day:
         song_found = False
@@ -86,7 +93,7 @@ def index():
     else:
         print('Pulling', session['song_data']['song'], 'from cache')
     return render_template('play.html', song=session['song_data']['song'],
-    all_songs=session['song_data']['all_songs'], lyrics=session['song_data']['lyrics'], day=num_day, id=session['uuid'])
+    all_songs=session['song_data']['all_songs'], lyrics=session['song_data']['lyrics'], day=num_day, id=user_id)
 
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']
@@ -120,6 +127,9 @@ def format_lyrics(lyrics):
         if line:
             result.append(line)
     return result
+
+def get_user_id(user):
+    return user.me()['id']
 
 if (__name__ == "main"):
     app.run(debug=True)

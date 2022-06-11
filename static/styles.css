@@ -1,10 +1,11 @@
 * {
     color: #000000;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    @import url('https://rsms.me/inter/inter.css');
+    font-family: 'Inter', sans-serif;
 }
 
 body {
-    background-color: aliceblue;
+    background-color: #F6F6F6;
 }
 
 .title {
@@ -12,6 +13,7 @@ body {
     font-weight: 650;
     font-size: 35px;
 }
+
 
 .welcome-screen {
     height: 35vh;
@@ -36,10 +38,15 @@ body {
 
 .tagline {
     font-weight: 500;
-    font-style: italic;
     margin-bottom: 3vh;
+    font-style: italic;
     text-align: center;
 }
+
+.tagline h2 {
+    font-style: normal;
+}
+
 
 .message-container p {
     background-color: #cdcdcd;
@@ -54,9 +61,10 @@ body {
 }
 
 .lyric-container .lyric {
+    background-color: #F4F4F4;
     font-size:25px;
     font-weight: 400;
-    border:1px solid black;
+    border:2px solid #D8D8D8;
     margin-top: 1vh;
     margin-bottom: 1.2vh;
     padding: 1vh;
@@ -74,7 +82,7 @@ body {
 
 .buttons button {
     color: white;
-    background-color: #0a0a23;
+    background-color: #2C2C2C;
     border: none;
     border-radius: 10px;
     padding: 15px;
@@ -95,31 +103,48 @@ body {
     display: block;
     box-sizing: border-box;
     width: 100%;
-    border-width: 0.1em;
+    border:2px solid #2C2C2C;
     border-radius: 10px;
     padding: 5px;
 }
 
 #submit {
-    background-color: rgb(131, 190, 131);
+    background-color: #70AB7D;;
     margin-left: 2vw;
 }
     
 .score-display {
     margin-top: 2vh;
 }
+
 .popup-container {
+    display: none;
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.popup-items {
     color: rgb(248, 248, 248);
-    position:fixed;
+    background-color: #FAF9F6;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    overflow: hidden;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #FAF9F6;
-    width: 350px;
-    height: 250px;
+    width: 80vw;
+    max-width: 500px;
     text-align: center;
+    align-items: center;
+    min-height: 25vh;
     border-radius: 25px;
-    opacity: 0%;
 }
 
 .popup-container #title {
@@ -130,34 +155,62 @@ body {
     font-weight: 600;
 }
 
-.popup-container .song-container {
+#song-title {
+    font-weight: 500;
+    font-style: italic;
     margin-bottom: 15px;
+}
+
+.streak-container {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 65%;
+}
+
+.streak-container p {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 1.5vw;
+}
+
+#close {
+    position: absolute;
+    top: 2%;
+    right: 3%;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .popup-container button {
     color: white;
     height: 40px;
-    width: 80%;
+    width: 300px;
+    margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
-    background-color: #121213;
+    background-color: #2C2C2C;
     border: none;
     font-size: 16px;
     font-weight: 450;
 }
 
 .popup-container #share {
-    background-color: rgb(131, 190, 131);
+    background-color: #70AB7D;
 }
 
 .leaderboard-container {
     position: absolute;
     margin-top: 10px;
+    top:0px;
+    right:15px;
 }
 
 #leaderboard {
     opacity: 0;
-    width: 3em;
+    width: 2.7em;
     height: auto;
 }
 

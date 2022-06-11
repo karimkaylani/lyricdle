@@ -1,4 +1,5 @@
 //localStorage.clear()
+console.log(id)
 song = song.substring(1,song.length-1)
 var songform = document.getElementById("song-form")
 var submit = document.getElementById("submit")
@@ -10,13 +11,33 @@ skip.addEventListener('click', wrong)
 var gameContainer = document.querySelector('.game-container')
 
 var popUpDisplay = document.querySelector('.popup-container'); 
+var popUp = document.querySelector('.popup-items'); 
 var scoreDisplay = document.querySelector('.score-display')
 
 var lyricContainer = document.querySelector('.lyric-container')
 var lines = lyricContainer.children
 
-if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('date')))
-&& (song == localStorage.getItem('song'))) {
+window.onclick = function(event) {
+    if (event.target == popUpDisplay) {
+        popUpDisplay.style.display = "none";
+    }
+}
+
+// keep track of streak
+var numGamesPlayed = 0
+var currentStreak = 0
+var highestStreak = 0
+
+if (localStorage.getItem('numGamesPlayed') != null) {
+    numGamesPlayed = parseInt(localStorage.getItem('numGamesPlayed'))
+    currentStreak = parseInt(localStorage.getItem('currentStreak'))
+    highestStreak = parseInt(localStorage.getItem('highestStreak'))
+}
+
+console.log(numGamesPlayed)
+
+if ((localStorage.getItem('id')) && (day == parseInt(localStorage.getItem('date')))
+&& (id == localStorage.getItem('id'))) {
     // if have loaded cookie before
     // if have saved page before
     var score = parseInt(localStorage.getItem('score'))
@@ -40,6 +61,7 @@ if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('dat
     var lost = false
 
     lines[0].children[0].style.opacity = '100'
+    save()
 }
 
 
@@ -71,6 +93,11 @@ function wrong() {
 }
 
 function correct() {
+    numGamesPlayed += 1
+    currentStreak += 1
+    if (currentStreak > highestStreak) {
+        highestStreak = currentStreak
+    }
     displayMessage('Awesome!!')
     won = true
     createPopup()
@@ -78,6 +105,8 @@ function correct() {
 }
 
 function gameOver() {
+    numGamesPlayed += 1
+    currentStreak = 0
     lost = true
     score = 7
     scoreDisplay.textContent = 'X/6'
@@ -94,17 +123,25 @@ function createPopup() {
     } else {
         completedElement.textContent = "Sorry :("
     }
-    popUpDisplay.prepend(completedElement)
-    popUpDisplay.style.opacity = "100%";
+    popUp.prepend(completedElement)
+    showPopup()
 
     const songTitle = document.getElementById('song-title')
-    songTitle.textContent = "The song was:\n" + song
+    songTitle.textContent = song
 
-    const close = document.getElementById('dismiss')
+    const close = document.getElementById('close')
     close.addEventListener('click', () => closePopup())
 
     const share = document.getElementById('share')
     share.addEventListener('click', () => shareScore())
+
+    const currStreakElem = document.getElementById('curr-streak')
+    const longestStreakElem = document.getElementById('longest-streak')
+    const daysPlayedElem = document.getElementById('days-played')
+
+    currStreakElem.innerHTML += currentStreak.toString()
+    longestStreakElem.innerHTML += highestStreak.toString()
+    daysPlayedElem.innerHTML += numGamesPlayed.toString()
 
     const scoreIcon = document.getElementById('leaderboard')
     scoreIcon.style.opacity = "100"
@@ -137,11 +174,11 @@ function shareScore() {
 }
 
 function closePopup() {
-    popUpDisplay.style.opacity = "0";
+    popUpDisplay.style.display = "none";
 }
 
 function showPopup() {
-    popUpDisplay.style.opacity = "100";
+    popUpDisplay.style.display = "block";
 }
 
 function displayMessage(message) {
@@ -157,5 +194,9 @@ function save() {
     localStorage.setItem('won', won)
     localStorage.setItem('lost', lost)
     localStorage.setItem('date', day)
-    localStorage.setItem('song', song)
+    localStorage.setItem('id', id)
+
+    localStorage.setItem('numGamesPlayed', numGamesPlayed)
+    localStorage.setItem('currentStreak', currentStreak)
+    localStorage.setItem('highestStreak', highestStreak)
 }

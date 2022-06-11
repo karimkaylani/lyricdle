@@ -2,11 +2,12 @@
 
 {% block body %}
 
+<div class="leaderboard-container">
+    <img id="leaderboard" src="static/leaderboard.png">
+</div>
+
 
 <div class="game-container">
-    <div class="leaderboard-container">
-        <img id="leaderboard" src="static/leaderboard.png">
-    </div>
     <div class="title">
         Lyricdle
     </div>
@@ -41,7 +42,7 @@
     </script>
 
     <div class="song-input">
-        <label for="song">Song:</label>
+        <label for="song">Type song here:</label>
         <input type="text"
         id = "song-form"
         id="song" name="song"
@@ -58,20 +59,25 @@
     </div>
 
     <div class="popup-container">
-        <div class="song-container">
-            <p id="song-title"></p>
-        </div>
-        <div class="share-button">
-            <button id="share">
-                Share Result
-            </button>
+        <div class="popup-items">
+            <span id="close">&times;</span>
+            <div class="song-container">
+                <p>The song was:</p>
+                <p id="song-title"></p>
+            </div>
+            <div class="streak-container">
+                <p id="curr-streak">Current Streak<br></p>
+                <p id="longest-streak">Longest Streak<br></p>
+                <p id="days-played">Days Played<br></p>
+            </div>
+
+            <div class="share-button">
+                <button id="share">
+                    Share Result
+                </button>
+            </div>
         </div>
         
-        <div class="dismiss-button">
-            <button id="dismiss">
-                Close
-            </button>
-        </div>
 
 </div>
 
@@ -79,7 +85,7 @@
 <script>
     var song = '{{ song|tojson }}'
     var day = '{{ day }}'
-    var id = '{{ id }}'
+    var id = '{{ id|tojson }}'
 </script>
 <script src="{{url_for('static', filename='app.js')}}"></script>
 
