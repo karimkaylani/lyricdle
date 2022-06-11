@@ -1,5 +1,4 @@
-localStorage.clear()
-console.log(id)
+//localStorage.clear()
 song = song.substring(1,song.length-1)
 var songform = document.getElementById("song-form")
 var submit = document.getElementById("submit")
@@ -34,10 +33,8 @@ if (localStorage.getItem('numGamesPlayed') != null) {
     highestStreak = parseInt(localStorage.getItem('highestStreak'))
 }
 
-console.log(numGamesPlayed)
-
-if ((localStorage.getItem('id')) && (day == parseInt(localStorage.getItem('date')))
-&& (id == localStorage.getItem('id'))) {
+if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('date')))
+&& (song == localStorage.getItem('song'))) {
     // if have loaded cookie before
     // if have saved page before
     var score = parseInt(localStorage.getItem('score'))
@@ -194,7 +191,7 @@ function save() {
     localStorage.setItem('won', won)
     localStorage.setItem('lost', lost)
     localStorage.setItem('date', day)
-    localStorage.setItem('id', id)
+    localStorage.setItem('song', song)
 
     localStorage.setItem('numGamesPlayed', numGamesPlayed)
     localStorage.setItem('currentStreak', currentStreak)

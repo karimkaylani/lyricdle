@@ -92,7 +92,7 @@ def index():
     else:
         print('Pulling', session['song_data']['song'], 'from cache')
     return render_template('play.html', song=session['song_data']['song'],
-    all_songs=session['song_data']['all_songs'], lyrics=session['song_data']['lyrics'], day=num_day, id=user_id)
+    all_songs=session['song_data']['all_songs'], lyrics=session['song_data']['lyrics'], day=num_day)
 
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']

@@ -84,12 +84,13 @@ body {
 }
 
 .lyric-container {
+    max-width: 600px;
     margin-top: 2vh;
 }
 
 .lyric-container .lyric {
     background-color: #F4F4F4;
-    font-size:25px;
+    font-size:23px;
     font-weight: 400;
     border:2px solid #D8D8D8;
     margin-top: 1vh;
@@ -163,7 +164,7 @@ body {
     flex-direction: column;
     justify-content: start;
     overflow: hidden;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 80vw;
