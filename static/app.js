@@ -2,7 +2,6 @@
 song = song.substring(1,song.length-1)
 art = art.substring(1,art.length-1)
 link = link.substring(1,link.length-1)
-console.log(art)
 var songform = document.getElementById("song-form")
 var submit = document.getElementById("submit")
 submit.addEventListener('click', check)
@@ -183,8 +182,15 @@ function shareScore() {
     }
     shareMessage += emojiLine + "\n\n" + song + "\nhttps://lyricdle.app"
     shareMessage = shareMessage.replace(/\n$/, ''); // remove last new line character
-    navigator.clipboard.writeText(shareMessage)
-    displayMessage('Score copied to clipboard!')
+    if (navigator.share) {
+        navigator.share({
+            text: shareMessage
+        })
+    } else {
+        navigator.clipboard.writeText(shareMessage)
+        displayMessage('Score copied to clipboard!')
+    }
+    
 }
 
 function closePopup() {
