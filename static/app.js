@@ -53,6 +53,7 @@ if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('dat
         if (i > 5) { break }
         lines[i].children[0].style.opacity = '100'
     }
+    revealRemainingLyrics()
     if (won || lost) {
         if (lost) { scoreDisplay.textContent = 'X/6' }
         createPopup()
@@ -108,6 +109,7 @@ function correct() {
         highestStreak = currentStreak
     }
     won = true
+    revealRemainingLyrics()
     createPopup()
     save()
 }
@@ -126,7 +128,11 @@ function createPopup() {
     const completedElement = document.createElement('p')
     completedElement.setAttribute('id', 'title')
     if (won) {
-        completedElement.textContent = "You got it!"
+        if (score == 1) {
+            completedElement.textContent = "You got it in " + score + " try!"
+        } else {
+            completedElement.textContent = "You got it in " + score + " tries!"
+        }
     } else {
         completedElement.textContent = "Sorry :("
     }
@@ -160,6 +166,14 @@ function createPopup() {
     const scoreIcon = document.getElementById('leaderboard')
     scoreIcon.style.display = "block"
     scoreIcon.addEventListener('click', () => showPopup())
+}
+
+function revealRemainingLyrics() {
+    for (let i = score; i < 6; i++) {
+        if (i > 5) { break }
+        lines[i].children[0].style.opacity = '100'
+        lines[i].children[0].style.color = getComputedStyle(document.body).getPropertyValue('--primary-gray')
+    }
 }
 
 function shareScore() {
