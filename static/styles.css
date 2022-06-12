@@ -51,6 +51,7 @@ body {
 }
 
 .message-container {
+    z-index: 2;
     margin-top: 1.5vh;
     height: 30px;
 }
@@ -165,7 +166,7 @@ body {
     flex-direction: column;
     justify-content: start;
     overflow: hidden;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 80vw;
