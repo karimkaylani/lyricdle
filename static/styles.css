@@ -115,6 +115,7 @@ body {
     border-radius: 10px;
     padding: 15px;
     font: 1rem / 1.25 sans-serif;
+    cursor: pointer;
 }
 
 .song-input {
@@ -153,7 +154,7 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .popup-items {
@@ -164,7 +165,7 @@ body {
     flex-direction: column;
     justify-content: start;
     overflow: hidden;
-    top: 45%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 80vw;
@@ -172,8 +173,11 @@ body {
     text-align: center;
     align-items: center;
     min-height: 25vh;
-    border-radius: 25px;
+    border-radius: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
+
 
 .popup-container #title {
     color: var(--primary-black);
@@ -204,6 +208,7 @@ body {
 }
 
 #close {
+    cursor: pointer;
     position: absolute;
     top: 2%;
     right: 3%;
@@ -222,6 +227,11 @@ body {
     border: none;
     font-size: 16px;
     font-weight: 450;
+    cursor: pointer;
+}
+
+#albumArt {
+    border-radius: 8px;
 }
 
 .popup-container #share {

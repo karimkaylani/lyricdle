@@ -1,5 +1,8 @@
 //localStorage.clear()
 song = song.substring(1,song.length-1)
+art = art.substring(1,art.length-1)
+link = link.substring(1,link.length-1)
+console.log(art)
 var songform = document.getElementById("song-form")
 var submit = document.getElementById("submit")
 submit.addEventListener('click', check)
@@ -21,6 +24,12 @@ window.onclick = function(event) {
         popUpDisplay.style.display = "none";
     }
 }
+
+songform.addEventListener('keypress', function(event) {
+    if (songform.value && event.key == 'Enter') {
+        check()
+    }
+})
 
 // keep track of streak
 var numGamesPlayed = 0
@@ -65,11 +74,14 @@ if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('dat
 function check() {
     if (won || lost) {return}
     var input = songform.value
-    console.log(input)
-    console.log(song)
+    if (!(songs.includes(input))) {
+        displayMessage('Must be a valid guess')
+        return
+    }
     if (input == song) {
         correct()
     } else {
+        displayMessage('Incorrect')
         wrong()
     }
 }
@@ -108,7 +120,6 @@ function gameOver() {
     score = 7
     scoreDisplay.textContent = 'X/6'
     createPopup()
-    displayMessage('Sorry :( the song was ' + song)
     save()
 }
 
@@ -121,10 +132,15 @@ function createPopup() {
         completedElement.textContent = "Sorry :("
     }
     popUp.prepend(completedElement)
-    showPopup()
 
     const songTitle = document.getElementById('song-title')
     songTitle.textContent = song
+
+    const albumArt = document.getElementById('albumArt')
+    albumArt.src = art
+
+    const albumArtLink = document.getElementById('albumArtLink')
+    albumArtLink.href = link
 
     const close = document.getElementById('close')
     close.addEventListener('click', () => closePopup())
@@ -139,6 +155,8 @@ function createPopup() {
     currStreakElem.innerHTML += currentStreak.toString()
     longestStreakElem.innerHTML += highestStreak.toString()
     daysPlayedElem.innerHTML += numGamesPlayed.toString()
+
+    showPopup()
 
     const scoreIcon = document.getElementById('leaderboard')
     scoreIcon.style.display = "block"
@@ -165,7 +183,6 @@ function shareScore() {
     }
     shareMessage += emojiLine + "\n\n" + song + "\nhttps://lyricdle.app"
     shareMessage = shareMessage.replace(/\n$/, ''); // remove last new line character
-    console.log(shareMessage)
     navigator.clipboard.writeText(shareMessage)
     displayMessage('Score copied to clipboard!')
 }

@@ -87,12 +87,16 @@ def index():
             if genius_song:        
                 lyrics = format_lyrics(genius_song.lyrics)
                 if len(lyrics) >= 6:
+                    album_art_url = song['album']['images'][0]['url']
+                    spotify_link = song['external_urls']['spotify']
                     song_found = True
-        session['song_data'] = {'song': song_str, 'all_songs': all_tracks, 'lyrics': lyrics[:6], 'num_day': num_day}
+        session['song_data'] = {'song': song_str, 'all_songs': all_tracks, 'lyrics': lyrics[:6], 'num_day': num_day,
+        'art': album_art_url, 'link':spotify_link}
     else:
         print('Pulling', session['song_data']['song'], 'from cache')
     return render_template('play.html', song=session['song_data']['song'],
-    all_songs=session['song_data']['all_songs'], lyrics=session['song_data']['lyrics'], day=num_day)
+    all_songs=session['song_data']['all_songs'], lyrics=session['song_data']['lyrics'], 
+    art=session['song_data']['art'], link=session['song_data']['link'], day=num_day)
 
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']
