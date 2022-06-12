@@ -77,7 +77,8 @@ body {
 }
 
 .message-container p {
-    background-color: #cdcdcd;
+    color:white;
+    background-color: var(--primary-black);
     border-radius: 10px;
     padding: 10px;
     margin: 0;
