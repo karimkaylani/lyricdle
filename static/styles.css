@@ -167,8 +167,8 @@ body {
     flex-direction: column;
     justify-content: start;
     overflow: hidden;
-    top: 50vh;
-    left: 50vw;
+    top: 40%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: 80vw;
     max-width: 500px;

@@ -1,4 +1,3 @@
-//localStorage.clear()
 song = song.substring(1,song.length-1)
 art = art.substring(1,art.length-1)
 link = link.substring(1,link.length-1)
@@ -80,7 +79,9 @@ function check() {
     if (input == song) {
         correct()
     } else {
-        displayMessage('Incorrect')
+        if (score < 6) {
+            displayMessage('Incorrect')
+        }
         wrong()
     }
 }
@@ -106,7 +107,6 @@ function correct() {
     if (currentStreak > highestStreak) {
         highestStreak = currentStreak
     }
-    displayMessage('Awesome!!')
     won = true
     createPopup()
     save()
