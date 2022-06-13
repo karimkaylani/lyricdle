@@ -17,6 +17,10 @@ var scoreDisplay = document.querySelector('.score-display')
 var lyricContainer = document.querySelector('.lyric-container')
 var lines = lyricContainer.children
 
+// preload album art in popup
+const albumArt = document.getElementById('albumArt')
+albumArt.src = art
+
 window.onclick = function(event) {
     if (event.target == popUpDisplay) {
         popUpDisplay.style.display = "none";
@@ -53,9 +57,11 @@ if ((localStorage.getItem('date')) && (day == parseInt(localStorage.getItem('dat
         if (i > 5) { break }
         lines[i].children[0].style.opacity = '100'
     }
-    revealRemainingLyrics()
     if (won || lost) {
         if (lost) { scoreDisplay.textContent = 'X/6' }
+        if (won) {
+            revealRemainingLyrics()
+        }
         createPopup()
     }
 
@@ -141,9 +147,6 @@ function createPopup() {
     const songTitle = document.getElementById('song-title')
     songTitle.textContent = song
 
-    const albumArt = document.getElementById('albumArt')
-    albumArt.src = art
-
     const albumArtLink = document.getElementById('albumArtLink')
     albumArtLink.href = link
 
@@ -169,10 +172,11 @@ function createPopup() {
 }
 
 function revealRemainingLyrics() {
+    var gray =  getComputedStyle(document.body).getPropertyValue('--primary-gray')
     for (let i = score; i < 6; i++) {
         if (i > 5) { break }
         lines[i].children[0].style.opacity = '100'
-        lines[i].children[0].style.color = getComputedStyle(document.body).getPropertyValue('--primary-gray')
+        lines[i].children[0].style.color = gray
     }
 }
 
