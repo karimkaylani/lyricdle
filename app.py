@@ -14,7 +14,7 @@ import re
 app = Flask(__name__)
 
 # adapted from exaples/app.py
-app.config['SECRET_KEY'] = os.urandom(64)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
 cache_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)),
