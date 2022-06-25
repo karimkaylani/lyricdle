@@ -34,6 +34,40 @@ body {
     align-items: center;
 }
 
+#question {
+    width: 2.7em;
+    height: auto;
+    margin-top: 5vh;
+    cursor: pointer;
+}
+
+.htp-container {
+    display: none;
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.htp-items {
+    text-align: center;
+    background-color: #FAF9F6;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 25px;
+    width:75vw;
+}
+
+#close-htp {
+    float: right;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .game-container {
     height: 65vh;
     display: flex;

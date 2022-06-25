@@ -8,6 +8,10 @@ submit.addEventListener('click', check)
 var skip = document.getElementById("skip")
 skip.addEventListener('click', wrong)
 
+var openHTP = document.getElementById('question')
+var closeHTP = document.getElementById('close-htp')
+var htpDisplay = document.querySelector('.htp-container')
+
 var gameContainer = document.querySelector('.game-container')
 
 var popUpDisplay = document.querySelector('.popup-container'); 
@@ -21,7 +25,18 @@ var lines = lyricContainer.children
 const albumArt = document.getElementById('albumArt')
 albumArt.src = art
 
+openHTP.onclick = function() {
+    htpDisplay.style.display = "block";
+}
+
+closeHTP.onclick = function() {
+    htpDisplay.style.display = "none";
+}
+
 window.onclick = function(event) {
+    if (event.target == htpDisplay) {
+        htpDisplay.style.display = "none";
+    }
     if (event.target == popUpDisplay) {
         popUpDisplay.style.display = "none";
     }
