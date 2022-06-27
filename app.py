@@ -74,7 +74,11 @@ def index():
     # select song
     if not session.get('song_data') or session.get('song_data')['num_day'] != num_day:
         song_found = False
+        tries = 0
         while not song_found:
+            if tries >= 5:
+                print('Timed out: too many tries')
+                return "Sorry, took too many tries to find a song with lyrics. Please try again tomorrow"
             song, all_tracks = get_random_song_and_list(sp)
             song_str = song['name'] + ' - ' + song['artists'][0]['name']
             genius_song = genius.search_song(remove_feature(song['name']), song['artists'][0]['name'])
@@ -84,6 +88,8 @@ def index():
                     album_art_url = song['album']['images'][0]['url']
                     spotify_link = song['external_urls']['spotify']
                     song_found = True
+                else:
+                    tries += 1
         session['song_data'] = {'song': song_str, 'all_songs': all_tracks, 'lyrics': lyrics[:6], 'num_day': num_day,
         'art': album_art_url, 'link':spotify_link}
     else:
