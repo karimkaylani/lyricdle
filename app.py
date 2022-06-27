@@ -90,6 +90,8 @@ def index():
                     song_found = True
                 else:
                     tries += 1
+            else:
+                tries += 1
         session['song_data'] = {'song': song_str, 'all_songs': all_tracks, 'lyrics': lyrics[:6], 'num_day': num_day,
         'art': album_art_url, 'link':spotify_link}
     else:
