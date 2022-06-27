@@ -76,7 +76,8 @@ def index():
         song_found = False
         tries = 0
         while not song_found:
-            if tries >= 5:
+            tries += 1 
+            if tries >= 6:
                 print('Timed out: too many tries')
                 return "Sorry, took too many tries to find a song with lyrics. Please try again tomorrow"
             song, all_tracks = get_random_song_and_list(sp)
@@ -88,10 +89,6 @@ def index():
                     album_art_url = song['album']['images'][0]['url']
                     spotify_link = song['external_urls']['spotify']
                     song_found = True
-                else:
-                    tries += 1
-            else:
-                tries += 1
         session['song_data'] = {'song': song_str, 'all_songs': all_tracks, 'lyrics': lyrics[:6], 'num_day': num_day,
         'art': album_art_url, 'link':spotify_link}
     else:
