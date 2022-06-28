@@ -77,10 +77,14 @@ def index():
         tries = 0
         while not song_found:
             tries += 1 
-            if tries >= 6:
-                print('Timed out: too many tries')
-                return "Sorry, took too many tries to find a song with lyrics. Please try again tomorrow"
-            song, all_tracks = get_random_song_and_list(sp)
+            if tries >= 7:
+                print('Timed out: too many attempts')
+                return "Sorry, took too many attempts to find a song with lyrics. Please try again tomorrow."
+            try:
+                song, all_tracks = get_random_song_and_list(sp)
+            except ValueError:
+                print("Didn't find any top Spotify songs")
+                return "Sorry, didn't find any top Spotify songs."
             song_str = song['name'] + ' - ' + song['artists'][0]['name']
             genius_song = genius.search_song(remove_feature(song['name']), song['artists'][0]['name'])
             if genius_song:        
@@ -100,6 +104,8 @@ def index():
 def get_random_song_and_list(user):
     tracks = user.current_user_top_tracks(limit=50, time_range='medium_term')['items']
     tracks.extend(user.current_user_top_tracks(limit=50, time_range='long_term')['items'])
+    if len(tracks) == 0:
+        tracks.extend(user.current_user_top_tracks(limit=50, time_range='short_term')['items'])
     value = random.randint(0, len(tracks)-1)
     all_tracks = []
     for i, track in enumerate(tracks):
