@@ -70,7 +70,6 @@ def index():
     num_day = (now - start_date).days
 
     sp = spotipy.Spotify(auth_manager=auth_manager)
-    random.seed(num_day)
     # select song
     if not session.get('song_data') or session.get('song_data')['num_day'] != num_day:
         song_found = False
@@ -79,7 +78,7 @@ def index():
             tries += 1 
             if tries >= 7:
                 print('Timed out: too many attempts')
-                return "Sorry, took too many attempts to find a song with lyrics. Please try again tomorrow."
+                return "Sorry, took too many attempts to find a song with lyrics."
             try:
                 song, all_tracks = get_random_song_and_list(sp)
             except ValueError:
