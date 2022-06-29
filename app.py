@@ -73,7 +73,7 @@ def index():
     sp = spotipy.Spotify(auth_manager=auth_manager)
     # select song
     if not session.get('song_data') or session.get('song_data')['num_day'] != num_day:
-        return "Lyricdle is currently having issues accessing Spotify. Please try again later today or tomorrow."
+        return render_template('error.html')
         song_found = False
         tries = 0
         while not song_found:
