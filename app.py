@@ -73,7 +73,6 @@ def index():
     sp = spotipy.Spotify(auth_manager=auth_manager)
     # select song
     if not session.get('song_data') or session.get('song_data')['num_day'] != num_day:
-        return render_template('error.html')
         song_found = False
         tries = 0
         while not song_found:
@@ -83,7 +82,8 @@ def index():
                 return "Sorry, took too many attempts to find a song with lyrics."
             try:
                 song, all_tracks = get_random_song_and_list(sp)
-            except ValueError:
+            except:
+                return render_template('error.html')
                 print("Didn't find any top Spotify songs")
                 return "Sorry, didn't find any top Spotify songs."
             song_str = song['name'] + ' - ' + song['artists'][0]['name']
