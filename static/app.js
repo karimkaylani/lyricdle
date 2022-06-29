@@ -12,6 +12,9 @@ var openHTP = document.getElementById('question')
 var closeHTP = document.getElementById('close-htp')
 var htpDisplay = document.querySelector('.htp-container')
 
+var signout = document.getElementById('signout')
+signout.addEventListener('click', deleteAllCookies)
+
 var gameContainer = document.querySelector('.game-container')
 
 var popUpDisplay = document.querySelector('.popup-container'); 
@@ -240,6 +243,19 @@ function displayMessage(message) {
     messageElement.textContent = message;
     messageDisplay.append(messageElement)
     setTimeout(() => messageDisplay.removeChild(messageElement), 3500)
+}
+
+// from https://stackoverflow.com/questions/179355/clearing-all-cookies-with-javascript
+function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+    location.reload()
 }
 
 function save() {

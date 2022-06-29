@@ -17,6 +17,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
+app.config['SESSION_COOKIE_HTTPONLY'] = False
 cache_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)),
  '.spotify_caches/')
 
@@ -72,6 +73,7 @@ def index():
     sp = spotipy.Spotify(auth_manager=auth_manager)
     # select song
     if not session.get('song_data') or session.get('song_data')['num_day'] != num_day:
+        return "Lyricdle is currently having issues accessing Spotify. Please try again later today or tomorrow."
         song_found = False
         tries = 0
         while not song_found:
