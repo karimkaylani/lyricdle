@@ -84,8 +84,6 @@ def index():
                 song, all_tracks = get_random_song_and_list(sp)
             except:
                 return render_template('error.html')
-                print("Didn't find any top Spotify songs")
-                return "Sorry, didn't find any top Spotify songs."
             song_str = song['name'] + ' - ' + song['artists'][0]['name']
             genius_song = genius.search_song(remove_feature(song['name']), song['artists'][0]['name'])
             if genius_song:        

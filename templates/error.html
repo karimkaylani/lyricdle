@@ -1,2 +1,25 @@
-<h2>Lyricdle is getting popular! Due to the quick increase in users, Spotify is undergoing a review process. Please try again later today or tomorrow.</h2>
-<p>Streak data will not be lost. Thank you for your paitience :)</h3></p>
+{% extends 'base.html' %}
+
+{% block body %}
+
+<body style="text-align: center;">
+
+<h1>Sad news :(</h1>
+<h3>Lyricdle has been rejected from integrating the Spotify platform due to their policy on not allowing games and trivia quizzes.</h3>
+
+<img width="500" src="{{ url_for('static', filename='heartbreak.jpg') }}"></img>
+
+<h3>Thank you thank you thank you to the tens of thousands of people who played, shared, and enjoyed the game – we had fun while it lasted :)</h3>
+<p style="font-size: 12px;">P.S. let this be a lesson to read the terms of service before committing well over a month towards a project :P</p>
+
+<address style="margin-top: 80px; text-align: center; font-size: 14px;">
+    You can find me here: <br><br>
+    Karim Kaylani<br>
+    <a href="mailto:karimkaylani@gmail.com">Email</a><br>
+    <a href="https://github.com/karimkaylani/">Github</a><br>
+</address>
+
+</body>
+
+
+{% endblock %}
